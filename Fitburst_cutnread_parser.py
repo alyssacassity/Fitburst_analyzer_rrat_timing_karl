@@ -8,6 +8,8 @@ import glob
 import os
 import Fitburst_singlecut_mod as fbsc
 import argparse
+import numpy as np
+import json
 # Load files for analysis (Read in names of candidates)
 #files = glob.glob(r'\\wsl.localhost\Ubuntu\home\ktsang45\*.fil')
 
@@ -59,18 +61,57 @@ for file in filfiles:
     if filmjd in file:
         fils_to_run.append(file)
 print(fils_to_run)
+
+toa_list = []
+#npz_files = os.listdir(r'C:\Users\ktsan\Desktop\Research\NPZ_files')
+npz_files = [i for i in os.listdir(npz_path) if '.npz' in i]
+#for file_run in fils_to_run:
+tstart_list = []
+for i in range(len(files)):
+    tstart_list.append(fbsc.singlecut(fils_to_run[0], float(filtime[i])-0.5, float(fildm[i]), filtime[i]))
+tstart_list = np.array(tstart_list)
+for i in range(len(npz_files)):
+    print(npz_files[i])
+
+    #os.system('python fitburst_pipeline.py ' + r'\\wsl.localhost\Ubuntu\home\ktsang45\NPZ_files' + r'\\'+ file + ' --outfile')
+    os.system('python fitburst_pipeline.py '  +' --outfile '+ npz_files[i] )
+    
+""" Some code for reading the TOA from the results json file"""
+results_files = [i for i in os.listdir(npz_path) if '.json' in i]
+results_toa = []
+ref_freqs = []
+mjd_errors = []
+for i in range(len(results_files)):
+    with open(results_files[i], 'r') as f:
+        data = json.load(f)
+        results_toa.append((data['model_parameters']['arrival_time'][0]-0.5)/86400)
+        ref_freqs.append(data['model_parameters']['ref_freq'][0])
+        if (isinstance(data['fit_statistics']['bestfit_uncertainties']['arrival_time'][0], float) and 
+        (not np.isnan(data['fit_statistics']['bestfit_uncertainties']['arrival_time'][0]))) :
+            mjd_errors.append(data['fit_statistics']['bestfit_uncertainties']['arrival_time'][0])
+        else:
+            mjd_errors.append(1e-6)
+print("Results_TOA", results_toa)
+filtime = [float(i) for i in filtime]
+filtime = np.array(filtime)/86400
+print(len(npz_files))
     
 """Some code here for calling  fitburst_pipeline.py on the .npz files and 
     iterate over them."""
 
-#npz_files = os.listdir(r'C:\Users\ktsan\Desktop\Research\NPZ_files')
-npz_files = os.listdir(npz_path)
-for file_run in fils_to_run:
-    for i in range(len(files)):
-        fbsc.singlecut(file_run, float(filtime[i])-0.5, float(fildm[i]), filtime[i])
-                
-for file in npz_files:
-    print(file)
-    if '.npz' in file:
-    #os.system('python fitburst_pipeline.py ' + r'\\wsl.localhost\Ubuntu\home\ktsang45\NPZ_files' + r'\\'+ file + ' --outfile')
-        os.system('python fitburst_pipeline.py '  +' --outfile '+ file )
+toa_list.append(tstart_list+filtime+results_toa)
+print("TOA_list", toa_list)
+print(len(toa_list))
+
+
+""" Save data to .tim file"""
+res_file = open('pulsar_timing_results.tim', 'w')
+txt_list = []
+for i in range(len(npz_files)):
+    txt_line = ([j for j in fils_to_run[0].split("/") if '.fil' in j][0].removesuffix('.fil')
+                + ' ' + str(ref_freqs[i]) + ' ' + str(toa_list[0][i]) + ' ' 
+                + str(mjd_errors[i]) + ' y  \n')
+    txt_list.append(txt_line)
+res_file.writelines(txt_list)
+res_file.close()
+    
