@@ -65,6 +65,7 @@ print(fils_to_run)
 toa_list = []
 #npz_files = os.listdir(r'C:\Users\ktsan\Desktop\Research\NPZ_files')
 npz_files = [i for i in os.listdir(npz_path) if '.npz' in i]
+print('test')
 #for file_run in fils_to_run:
 tstart_list = []
 for i in range(len(files)):
@@ -85,7 +86,7 @@ for i in range(len(results_files)):
     with open(results_files[i], 'r') as f:
         data = json.load(f)
         results_toa.append((data['model_parameters']['arrival_time'][0]-0.5)/86400)
-        ref_freqs.append(data['model_parameters']['ref_freq'][0])
+        ref_freqs.append(800)
         if (isinstance(data['fit_statistics']['bestfit_uncertainties']['arrival_time'][0], float) and 
         (not np.isnan(data['fit_statistics']['bestfit_uncertainties']['arrival_time'][0]))) :
             mjd_errors.append(data['fit_statistics']['bestfit_uncertainties']['arrival_time'][0])
