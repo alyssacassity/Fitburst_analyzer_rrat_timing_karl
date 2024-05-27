@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 from iqrm  import iqrm_mask
 from scipy.stats import median_abs_deviation as mad
 
-def singlecut(fil_name, t_start, disp_measure, fil_time, isddp=True):
+def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=True):
     fbfile = FilReader(fil_name)
     sub = '.fil'
     # Remove suffix from filename for naming .npz file later
@@ -77,7 +77,7 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, isddp=True):
     #print(fil_short_name)
     #print(r'~/NPZ_files/'+ fil_short_name + '_' + fil_time + '.npz')
     np.savez(
-        (fil_short_name + '_' + fil_time + ".npz"), 
+        (fil_short_name + '_' + fil_time + '_' + t_origin + ".npz"), 
         data_full=data_full, 
         metadata=metadata, 
         burst_parameters=burst_parameters,

@@ -18,44 +18,43 @@ import json
 """Use Argparse to enable command line inputs"""
 parser = argparse.ArgumentParser()
 parser.add_argument(
-    "pulse_folder", 
+    "pulse_path", 
     action="store", 
     type=str,
-    help="Folder containing all the candidate pulses to be analyzed")
+    help="Path to .csv file containing all the candidate pulses to be analyzed")
 parser.add_argument(
     'fils_path', 
     action='store', 
     type=str,
     help='Path to all .fil files to be analyzed')
-parser.add_argument(
-    'npz_path', 
-    action='store', 
-    type=str,
-    help='Path to all .npz files to be analyzed')
 
 args = parser.parse_args()
-pulse_folder = args.pulse_folder
+pulse_path = args.pulse_path
 fils_path = args.fils_path
-npz_path = args.npz_path
 
 """Decide on where to cut the blocks here, then pass the cutting parameters
 as arguments into Fitburst_singlecut_mod.py to cut each file and generate
 an .npz file for each. """
     
 #files = os.listdir(r'\\wsl.localhost\Ubuntu\home\ktsang45\positive_bursts_1')
-files = os.listdir(pulse_folder)
+datafile = pulse_path
+data = np.genfromtxt(datafile, delimiter=",", dtype=str)
+files = data[0]
+tstart_list = []
 filtime = []
 fildm = []
 
 for file in files:
-    filparts = file.split('_')
-    filtime.append(filparts[4])
-    fildm.append(filparts[6])
+    file = file[file.find('cand'):]
+#filfiles = glob.glob(r'\\wsl.localhost\Ubuntu\home\ktsang45\*.fil')
+filfiles = glob.glob(fils_path + r'/*.fil')
+filparts = file.split('_')
+tstart_list.append(filparts[2])
+filtime.append(filparts[4])
+fildm.append(filparts[6])
     
 filmjd = str(int(float(filparts[2])))
 
-#filfiles = glob.glob(r'\\wsl.localhost\Ubuntu\home\ktsang45\*.fil')
-filfiles = glob.glob(fils_path + r'/*.fil')
 fils_to_run = []
 for file in filfiles:
     if filmjd in file:
@@ -63,11 +62,7 @@ for file in filfiles:
 print(fils_to_run)
 
 toa_list = []
-#npz_files = os.listdir(r'C:\Users\ktsan\Desktop\Research\NPZ_files')
-npz_files = [i for i in os.listdir(npz_path) if '.npz' in i]
 print('test')
 #for file_run in fils_to_run:
-tstart_list = []
 for i in range(len(files)):
-    tstart_list.append(fbsc.singlecut(fils_to_run[0], float(filtime[i])-0.5, float(fildm[i]), filtime[i]))
-tstart_list = np.array(tstart_list)
+    tstart_list.append(fbsc.singlecut(fils_to_run[0], float(filtime[i])-0.5, float(fildm[i]), filtime[i], float(tstart_list[i])))
