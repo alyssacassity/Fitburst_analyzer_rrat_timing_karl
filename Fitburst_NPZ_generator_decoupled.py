@@ -10,6 +10,7 @@ import Fitburst_singlecut_mod as fbsc
 import argparse
 import numpy as np
 import json
+import sys # needed for bash script interfacing
 # Load files for analysis (Read in names of candidates)
 #files = glob.glob(r'\\wsl.localhost\Ubuntu\home\ktsang45\*.fil')
 
