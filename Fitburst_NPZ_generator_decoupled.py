@@ -126,17 +126,17 @@ an .npz file for each. """
 datafile = pulse_path
 data = np.genfromtxt(datafile, delimiter=",", dtype=str)
 files = data[:,0]
-print(files)
+#print(files)
 tstart_list = []
 filtime = []
 fildm = []
 
 print('test1')
 for file in files:
-    print(file)
+    #print(file)
     file = file[file.find('cand'):]
     filparts = file.split('_')
-    print(filparts)
+    #print(filparts)
     filtime.append(filparts[4])
     fildm.append(filparts[6])
 #filfiles = glob.glob(r'\\wsl.localhost\Ubuntu\home\ktsang45\*.fil')
