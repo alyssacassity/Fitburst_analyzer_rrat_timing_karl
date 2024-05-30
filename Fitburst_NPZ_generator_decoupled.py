@@ -52,12 +52,14 @@ an .npz file for each. """
 datafile = pulse_path
 data = np.genfromtxt(datafile, delimiter=",", dtype=str)
 files = data[0]
+print(files)
 tstart_list = []
 filtime = []
 fildm = []
 
 print('test1')
 for file in files:
+    print(file)
     file = file[file.find('cand'):]
     filparts = file.split('_')
     print(filparts)
