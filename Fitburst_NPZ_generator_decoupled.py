@@ -51,7 +51,7 @@ an .npz file for each. """
 #files = os.listdir(r'\\wsl.localhost\Ubuntu\home\ktsang45\positive_bursts_1')
 datafile = pulse_path
 data = np.genfromtxt(datafile, delimiter=",", dtype=str)
-files = data[0]
+files = data[:,0]
 print(files)
 tstart_list = []
 filtime = []
