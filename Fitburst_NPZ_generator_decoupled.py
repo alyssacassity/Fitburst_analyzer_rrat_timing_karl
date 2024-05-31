@@ -72,7 +72,7 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=True):
                             
     
     # Plot data and save
-    plt.imshow(fbt, aspect='auto')
+    #plt.imshow(fbt, aspect='auto')
     #plt.imshow(fblock, aspect='auto')
     data_full = fbt
     #print(fil_short_name)
