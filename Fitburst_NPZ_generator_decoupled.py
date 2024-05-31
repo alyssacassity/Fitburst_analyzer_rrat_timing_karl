@@ -155,6 +155,7 @@ print(fils_to_run)
 toa_list = []
 print('test')
 #for file_run in fils_to_run:
+print(ind)
 for i in range(len(files)):
     print(i)
     tstart_list.append(singlecut(fils_to_run[ind], float(filtime[i])-0.5, float(fildm[i]), float(filtime[i]), float(tstart_list[i])))
