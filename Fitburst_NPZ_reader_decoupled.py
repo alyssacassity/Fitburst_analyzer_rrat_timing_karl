@@ -26,6 +26,7 @@ parser.add_argument(
 args = parser.parse_args()
 ind = args.index
 npz_path = args.npz_path
+print(npz_path)
 filtime = []
 tstart_list = []
 #npz_files = os.listdir(r'C:\Users\ktsan\Desktop\Research\NPZ_files')
