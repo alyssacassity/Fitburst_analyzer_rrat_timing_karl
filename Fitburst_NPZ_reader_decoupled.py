@@ -38,4 +38,4 @@ for i in range(len(npz_files)):
     print(npz_files[i])
 
     #os.system('python fitburst_pipeline.py ' + r'\\wsl.localhost\Ubuntu\home\ktsang45\NPZ_files' + r'\\'+ file + ' --outfile')
-    os.system('python fitburst_pipeline.py '  +' --outfile '+ npz_files[i] )
+    os.system('python ~/scratch/Python_code/fitburst_pipeline.py '  +' --outfile '+ npz_files[i] )
