@@ -78,7 +78,7 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=True):
     #print(fil_short_name)
     #print(r'~/NPZ_files/'+ fil_short_name + '_' + fil_time + '.npz')
     np.savez(
-        (fil_short_name + '_' + fil_time + '_' + t_origin + ".npz"), 
+        (fil_short_name + '_' + str(fil_time) + '_' + str(t_origin) + ".npz"), 
         data_full=data_full, 
         metadata=metadata, 
         burst_parameters=burst_parameters,
