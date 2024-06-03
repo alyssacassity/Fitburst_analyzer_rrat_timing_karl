@@ -130,6 +130,7 @@ files = data[:,0]
 tstart_list = []
 filtime = []
 fildm = []
+filmjd = []
 
 print('test1')
 for file in files:
@@ -140,17 +141,18 @@ for file in files:
     filtime.append(filparts[4])
     fildm.append(filparts[6])
     tstart_list.append(filparts[2])
+    filmjd.append(str(int(float(filparts[2]))))
 #filfiles = glob.glob(r'\\wsl.localhost\Ubuntu\home\ktsang45\*.fil')
 filfiles = glob.glob(fils_path + r'/*.fil')
 
 print('test2')
-filmjd = str(int(float(filparts[2])))
 
 fils_to_run = []
-for file in filfiles:
-    if filmjd in file:
-        fils_to_run.append(file)
-print(fils_to_run)
+for i in range(len(files)):
+    for file in filfiles:
+        if filmjd[i] in file:
+            fils_to_run.append(file)
+print('filstorun length ' + str(len(fils_to_run)))
 
 toa_list = []
 print('test')
