@@ -22,7 +22,7 @@ parser.add_argument(
     action='store', 
     type=str,
     help='Path to all .npz files to be analyzed')
-
+print('test')
 args = parser.parse_args()
 ind = args.index
 npz_path = args.npz_path
