@@ -139,6 +139,7 @@ for file in files:
     #print(filparts)
     filtime.append(filparts[4])
     fildm.append(filparts[6])
+    tstart_list.append(filparts[2])
 #filfiles = glob.glob(r'\\wsl.localhost\Ubuntu\home\ktsang45\*.fil')
 filfiles = glob.glob(fils_path + r'/*.fil')
 
@@ -149,7 +150,6 @@ fils_to_run = []
 for file in filfiles:
     if filmjd in file:
         fils_to_run.append(file)
-tstart_list.append(filparts[2])
 print(fils_to_run)
 
 toa_list = []
