@@ -38,4 +38,4 @@ tstart_list.append(filparts[4])
 print(npz_files[ind])
 
     #os.system('python fitburst_pipeline.py ' + r'\\wsl.localhost\Ubuntu\home\ktsang45\NPZ_files' + r'\\'+ file + ' --outfile')
-os.system('python '+ npz_path + 'fitburst_pipeline.py '  +' --outfile '+ npz_path + npz_files[ind] )
+os.system('python '+ npz_path + 'fitburst_pipeline.py '  +' --outfile '+ npz_path + npz_files[ind] + ' ' + npz_path )
