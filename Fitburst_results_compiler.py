@@ -30,7 +30,7 @@ ref_freqs = []
 mjd_errors = []
 filtime = []
 tstart_list = []
-
+print(results_files)
 for i in range(len(results_files)):
     with open(results_files[i], 'r') as f:
         data = json.load(f)
