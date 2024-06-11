@@ -62,8 +62,8 @@ filtime = np.array(filtime)/86400
     
 """Some code here for calling  fitburst_pipeline.py on the .npz files and 
     iterate over them."""
-
-toa_list.append(tstart_list+filtime+results_toa)
+for i in range(len(tstart_list)):    
+    toa_list.append(tstart_list[i]+filtime[i]+results_toa[i])
 print("TOA_list", toa_list)
 print(len(toa_list))
 
