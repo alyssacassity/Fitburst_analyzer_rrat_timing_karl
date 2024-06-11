@@ -36,8 +36,8 @@ for i in range(len(results_files)):
         data = json.load(f)
         results_toa.append((data['model_parameters']['arrival_time'][0]-0.5)/86400)
         ref_freqs.append(800)
-        filtime.append(results_files[i].split('_')[5])
-        tstart_list.append(results_files[i].split('_')[6])
+        filtime.append(results_files[i].split('_')[-2])
+        tstart_list.append(results_files[i].split('_')[-1])
         if (isinstance(data['fit_statistics']['bestfit_uncertainties']['arrival_time'][0], float) and 
         (not np.isnan(data['fit_statistics']['bestfit_uncertainties']['arrival_time'][0]))) :
             mjd_errors.append(data['fit_statistics']['bestfit_uncertainties']['arrival_time'][0])
