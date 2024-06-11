@@ -54,6 +54,7 @@ for i in range(len(results_files)):
     else:
         mjd_errors.append(1e-6)'''
 print("Results_TOA", results_toa)
+print(filtime)
 filtime = [float(i) for i in filtime]
 #filtime = float(filtime[ind])
 filtime = np.array(filtime)/86400
