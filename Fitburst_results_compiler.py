@@ -24,7 +24,8 @@ npz_path = args.npz_path
 toa_list = []
 
 """ Some code for reading the TOA from the results json file"""
-results_files = [i for i in os.listdir(npz_path) if '.json' in i]
+results_files = [i.removesuffix('.json') for i in os.listdir(npz_path) if '.json' in i]
+
 results_toa = []
 ref_freqs = []
 mjd_errors = []
