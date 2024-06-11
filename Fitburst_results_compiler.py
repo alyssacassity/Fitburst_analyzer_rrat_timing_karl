@@ -63,7 +63,7 @@ filtime = np.array(filtime)/86400
 """Some code here for calling  fitburst_pipeline.py on the .npz files and 
     iterate over them."""
 for i in range(len(tstart_list)):    
-    toa_list.append(str(tstart_list[i])+str(filtime[i])+str(results_toa[i]))
+    toa_list.append(tstart_list[i]+filtime[i]+results_toa[i])
 print("TOA_list", toa_list)
 print(len(toa_list))
 
@@ -73,7 +73,7 @@ res_file = open('pulsar_timing_results.tim', 'w')
 txt_list = []
 for i in range(len(results_files)):
     txt_line = (results_files[i].removesuffix('_'+ str(filtime[i])+'_'+str(tstart_list[i])+'.json').removeprefix('results_fitburst_')
-                + ' ' + str(ref_freqs[i]) + ' ' + str(toa_list[0][i]) + ' ' 
+                + ' ' + str(ref_freqs[i]) + ' ' + str(toa_list[i]) + ' ' 
                 + str(mjd_errors[i]) + ' y  \n')
     txt_list.append(txt_line)
 res_file.writelines(txt_list)
