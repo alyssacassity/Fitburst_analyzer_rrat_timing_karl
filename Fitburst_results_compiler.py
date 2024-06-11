@@ -24,7 +24,7 @@ npz_path = args.npz_path
 toa_list = []
 
 """ Some code for reading the TOA from the results json file"""
-results_files = [i.removesuffix('.json') for i in os.listdir(npz_path) if '.json' in i]
+results_files = [i for i in os.listdir(npz_path) if '.json' in i]
 
 results_toa = []
 ref_freqs = []
@@ -45,6 +45,7 @@ for i in range(len(results_files)):
         else:
             mjd_errors.append(1e-6)
             
+        results_files[i] = results_files[i].removesuffix('.json')
 '''with open(results_files[ind], 'r') as f:
     data = json.load(f)
     results_toa.append((data['model_parameters']['arrival_time'][0]-0.5)/86400)
