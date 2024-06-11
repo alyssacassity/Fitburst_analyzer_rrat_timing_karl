@@ -72,7 +72,7 @@ print(len(toa_list))
 res_file = open('pulsar_timing_results.tim', 'w')
 txt_list = []
 for i in range(len(results_files)):
-    txt_line = (results_files[i].removesuffix('_'+ filtime[i]+'_'+tstart_list[i]+'.json').removeprefix('results_fitburst_')
+    txt_line = (results_files[i].removesuffix('_'+ str(filtime[i])+'_'+str(tstart_list[i])+'.json').removeprefix('results_fitburst_')
                 + ' ' + str(ref_freqs[i]) + ' ' + str(toa_list[0][i]) + ' ' 
                 + str(mjd_errors[i]) + ' y  \n')
     txt_list.append(txt_line)
