@@ -32,7 +32,7 @@ filtime = []
 tstart_list = []
 print(results_files)
 for i in range(len(results_files)):
-    with open(results_files[i], 'r') as f:
+    with open(npz_path + results_files[i], 'r') as f:
         data = json.load(f)
         results_toa.append((data['model_parameters']['arrival_time'][0]-0.5)/86400)
         ref_freqs.append(800)
