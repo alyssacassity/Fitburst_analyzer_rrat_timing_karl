@@ -45,7 +45,8 @@ for i in range(len(results_files)):
         else:
             mjd_errors.append(1e-6)
             
-        results_files[i] = results_files[i].removesuffix('.json')
+results_files[i] = [i.removesuffix('.json') for i in results_files]
+
 '''with open(results_files[ind], 'r') as f:
     data = json.load(f)
     results_toa.append((data['model_parameters']['arrival_time'][0]-0.5)/86400)
