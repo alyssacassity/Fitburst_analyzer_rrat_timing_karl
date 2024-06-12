@@ -38,10 +38,11 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=True):
     
     # Identify bad channels for masking and dedisperse data if needed
     
-    if isddp:
+    if not isddp:
         fbt = fblock.dedisperse(dm=disp_measure)
     else: 
         fbt = fblock
+        disp_measure = 0
     mn = np.mean(fbt, axis = 1)
     mask = (mn == 0)
     fbt[mask,:] = np.median(fbt[~mask,:])
