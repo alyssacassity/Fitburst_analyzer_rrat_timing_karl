@@ -40,6 +40,7 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=True):
     
     if not isddp:
         fbt = fblock.dedisperse(dm=disp_measure)
+        disp_measure = 0
     else: 
         fbt = fblock
         disp_measure = 0
