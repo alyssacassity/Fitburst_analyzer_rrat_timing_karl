@@ -44,6 +44,10 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=True):
     else: 
         fbt = fblock
         disp_measure = 0
+    ignored_chans = ([0] + list(range(34,48)) + list(range(113,179)) +
+    list(range(185,211)) + list(range(218,255)) + list(range(554,569)) + list(range(584,597)) +
+    list(range(631,645)) + list(range(677,694)) + list(range(754,763))+list(range(788,792))+list(range(854,861))+list(range(873,876))+[887])
+    
     mn = np.mean(fbt, axis = 1)
     mask = (mn == 0)
     fbt[mask,:] = np.median(fbt[~mask,:])
@@ -52,7 +56,7 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=True):
     fbt[mask,:] = np.median(fbt[~mask,:])
     std_on = np.std(fbt, axis=1)
     
-    iqrmmask,votes = iqrm_mask(std_on, threshold=1)
+    iqrmmask,votes = iqrm_mask(std_on, threshold=1, ignorechans=ignored_chans)
     mask[iqrmmask] = True
     
     # Remove bad channels using mask
