@@ -165,7 +165,7 @@ for i in range(len(files)):
                 ignored_chans.extend(list(range(83,108)))
             fils_to_run.append(file)
 print('filstorun length ' + str(len(fils_to_run)))
-
+print('test')
 toa_list = []
 print('test')
 #for file_run in fils_to_run:
