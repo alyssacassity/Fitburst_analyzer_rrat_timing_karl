@@ -81,6 +81,7 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=True):
     
     # Plot data and save
     #plt.imshow(fbt, aspect='auto')
+    #Saves figure to .png image
     plt.imshow(fblock, aspect='auto')
     plt.savefig(fil_short_name + '_' + str(fil_time) + '_' + str(t_origin) + '_test.png')
     data_full = fbt
