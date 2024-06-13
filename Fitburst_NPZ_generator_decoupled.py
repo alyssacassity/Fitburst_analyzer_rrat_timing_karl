@@ -47,7 +47,7 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=True):
     ignored_chans = ([0] + list(range(34,48)) + list(range(113,179)) +
     list(range(185,211)) + list(range(218,255)) + list(range(554,569)) + list(range(584,597)) +
     list(range(631,645)) + list(range(677,694)) + list(range(754,763))+list(range(788,792))+list(range(854,861))+list(range(873,876))+[887])
-    
+
     mn = np.mean(fbt, axis = 1)
     mask = (mn == 0)
     fbt[mask,:] = np.median(fbt[~mask,:])
@@ -157,6 +157,12 @@ fils_to_run = []
 for i in range(len(files)):
     for file in filfiles:
         if filmjd[i] in file:
+            if (filmjd[i]>=59091 & filmjd[i]<59093):
+                ignored_chans.extend(list(range(444,470)))
+            elif filmjd[i]>=59093:
+                ignored_chans.extend(list(range(405,470)))
+            elif filmjd[i]>=59523:
+                ignored_chans.extend(list(range(83,108)))
             fils_to_run.append(file)
 print('filstorun length ' + str(len(fils_to_run)))
 
