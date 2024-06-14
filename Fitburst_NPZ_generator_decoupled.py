@@ -161,7 +161,8 @@ for file in files:
     filmjd.append(str(int(float(filparts[2]))))
 #filfiles = glob.glob(r'\\wsl.localhost\Ubuntu\home\ktsang45\*.fil')
 filfiles = glob.glob(fils_path + r'/*.fil')
-
+print('filtime is ' + str(filtime))
+print('start time is ' + str(tstart_list))
 print('test2')
 
 fils_to_run = []
