@@ -66,7 +66,7 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=True):
     
     # Remove bad channels using mask
     for i in range(len(mask)):
-        if i == ignored_chans[i]:
+        if i in ignored_chans:
             mask[i] = True
         if mask[i]:
             fbt[i,:] = np.median(fbt[i,:])
