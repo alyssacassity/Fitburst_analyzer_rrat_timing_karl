@@ -66,6 +66,7 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=True):
     
     # Remove bad channels using mask
     for i in range(len(mask)):
+        print('fbt plot' + str(fbt_plot[:,i]))
         fbt_plot[:,i/nsamps] = fbt[:,i]
         fbt_plot[:,i] = np.mean(fbt, axis=0)
         if i in ignored_chans:
@@ -183,4 +184,4 @@ print('test')
 #for file_run in fils_to_run:
 print('filstorun length ' + str(len(fils_to_run)) + 'filtime length ' + str(len(filtime)) + 'fildm length ' + str(len(fildm)) + 'tstart length ' +str(len(tstart_list)))
 print('Index '+ str(ind))
-singlecut(fils_to_run[ind], float(filtime[ind])-0.5, float(fildm[ind]), float(filtime[ind]), float(tstart_list[ind]))
+singlecut(fils_to_run[ind], float(filtime[ind])-0.5, float(fildm[ind]), float(filtime[ind]), float(tstart_list[indo]))
