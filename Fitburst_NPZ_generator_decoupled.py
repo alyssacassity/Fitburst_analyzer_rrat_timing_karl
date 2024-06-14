@@ -31,7 +31,7 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=True):
     dsampfreq = 8
     nsamps = nsamps-nsamps%downsamp
     #t_start = 396.3
-    #print(nsamps)
+    print(nsamps)
     start_samp = round(t_start/fbh.tsamp)
     #print(start_samp)
     fblock = fbfile.read_block(start_samp, nsamps)
@@ -66,6 +66,8 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=True):
     
     # Remove bad channels using mask
     for i in range(len(mask)):
+        fbt_plot[:,i] = fbt[:,i]/nsamps
+        fbt_plot[:,i] = np.mean(fbt, axis=0)
         if i in ignored_chans:
             mask[i] = True
         if mask[i]:
@@ -87,7 +89,7 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=True):
     # Plot data and save
     #plt.imshow(fbt, aspect='auto')
     #Saves figure to .png image
-    plt.imshow(fbt, aspect='auto')
+    plt.imshow(fbt_plot, aspect='auto')
     plt.savefig(fil_short_name + '_' + str(fil_time) + '_' + str(t_origin) + '_test.png')
     data_full = fbt
     #print(fil_short_name)
