@@ -68,7 +68,7 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=True):
     for i in range(len(mask)):
         print('fbt plot' + str(fbt_plot[:,i]))
         fbt_plot[i,:] = fbt[i,:]/nsamps
-        fbt_plot[:,i] = np.mean(fbt, axis=0)
+        fbt_plot[:,i] = np.mean(fbt, axis=1)
         if i in ignored_chans:
             mask[i] = True
         if mask[i]:
