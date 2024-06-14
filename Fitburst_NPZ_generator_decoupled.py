@@ -54,6 +54,7 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=True):
     mask = (mn == 0)
     fbt[mask,:] = np.median(fbt[~mask,:])
     mad_mask = mad(fbt, axis=1) > 1
+    print('Mad mask is ' + str(mad_mask))
     mask[mad_mask] = True
     fbt[mask,:] = np.median(fbt[~mask,:])
     std_on = np.std(fbt, axis=1)
