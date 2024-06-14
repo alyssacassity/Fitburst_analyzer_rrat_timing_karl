@@ -57,7 +57,7 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=True):
     mask[mad_mask] = True
     fbt[mask,:] = np.median(fbt[~mask,:])
     std_on = np.std(fbt, axis=1)
-    
+    print('Mask is ' + str(mask))
     iqrmmask,votes = iqrm_mask(std_on, threshold=1, ignorechans=ignored_chans)
     mask[iqrmmask] = True
     
