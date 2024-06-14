@@ -73,8 +73,11 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=True):
             mask[i] = True
         if mask[i]:
             fbt[i,:] = np.median(fbt[i,:])
+            fbt_plot[i,:] = np.median(fbt_plot[i,:])
     fbt = fbt.downsample(downsamp, dsampfreq)
     fbt = fbt.normalise()
+    fbt_plot = fbt_plot.downsample(downsamp, dsampfreq)
+    fbt_plot = fbt_plot.normalise()
 
     
     # Create metadata and burst parameters dictionaries
