@@ -60,7 +60,7 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=True):
     std_on = np.std(fbt, axis=1)
     print('Mask is ' + str(mask))
     iqrmmask,votes = iqrm_mask(std_on, threshold=1, ignorechans=ignored_chans)
-    print('Iqrmmask is ' + iqrmmask)
+    print('Iqrmmask is ' + str(iqrmmask))
     mask[iqrmmask] = True
     
     # Remove bad channels using mask
