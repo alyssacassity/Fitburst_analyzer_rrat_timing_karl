@@ -62,7 +62,7 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=True):
     iqrmmask,votes = iqrm_mask(std_on, threshold=1, ignorechans=ignored_chans)
     print('Iqrmmask is ' + str(iqrmmask))
     mask[iqrmmask] = True
-    fbt_plot = [ [0]*len(mask) for i in range(len(mask))]
+    fbt_plot = fbt
     
     # Remove bad channels using mask
     for i in range(len(mask)):
