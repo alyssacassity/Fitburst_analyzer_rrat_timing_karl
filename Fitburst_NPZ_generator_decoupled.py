@@ -161,7 +161,7 @@ fils_to_run = []
 for i in range(len(files)):
     for file in filfiles:
         if filmjd[i] in file:
-            if (filmjd[i]>=59091 & filmjd[i]<59093):
+            if (filmjd[i]>=59091 and filmjd[i]<59093):
                 ignored_chans.extend(list(range(444,470)))
             elif filmjd[i]>=59093:
                 ignored_chans.extend(list(range(405,470)))
