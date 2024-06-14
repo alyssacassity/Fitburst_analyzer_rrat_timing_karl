@@ -62,9 +62,12 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=True):
     iqrmmask,votes = iqrm_mask(std_on, threshold=1, ignorechans=ignored_chans)
     print('Iqrmmask is ' + str(iqrmmask))
     mask[iqrmmask] = True
+
     
     # Remove bad channels using mask
     for i in range(len(mask)):
+        if i == ignored_chans[i]:
+            mask[i] = True
         if mask[i]:
             fbt[i,:] = np.median(fbt[i,:])
     fbt = fbt.downsample(downsamp, dsampfreq)
