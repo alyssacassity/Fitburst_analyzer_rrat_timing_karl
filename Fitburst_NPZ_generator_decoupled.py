@@ -37,15 +37,15 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=True):
     fblock = fbfile.read_block(start_samp, nsamps)
     #fbd = fbfile.read_dedisp_block(round(200/fbh.tsamp), 59000, 112.5)
     #print(fblock)
-    
 
-    
+
+
     # Identify bad channels for masking and dedisperse data if needed
-    
+
     if not isddp:
         fbt = fblock.dedisperse(dm=disp_measure)
         disp_measure = 0
-    else: 
+    else:
         fbt = fblock
         disp_measure = 0
 
@@ -63,11 +63,11 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=True):
     print('Iqrmmask is ' + str(iqrmmask))
     mask[iqrmmask] = True
     fbt_plot = fbt
-    
+
     # Remove bad channels using mask
     for i in range(len(mask)):
         print('fbt plot' + str(fbt_plot[:,i]))
-        fbt_plot[i,:] = fbt[i,:]/nsamps
+        fbt_plot[i,:] = fbt[i,:]
         #fbt_plot[:,i] = np.mean(fbt, axis=1)
         if i in ignored_chans:
             mask[i] = True
@@ -79,21 +79,21 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=True):
     fbt_plot = fbt_plot.downsample(downsamp, dsampfreq)
     fbt_plot = fbt_plot.normalise()
 
-    
+
     # Create metadata and burst parameters dictionaries
     metadata = dict(bad_chans = 0, freqs_bin0 = fbh.fch1, is_dedispersed = isddp,
                     num_time = nsamps/downsamp, num_freq = fbh.nchans/dsampfreq,
                     times_bin0 = fbh.tstart+t_start/86400,  res_time = fbh.tsamp*downsamp, res_freq = fbh.foff*dsampfreq)
     burst_parameters = dict(ref_freq = [600.2], amplitude = [np.log10(np.max(fbt))], arrival_time = [0.5],
-                            burst_width = [0.02], dm = [disp_measure], dm_index = [-2], 
-                            scattering_index = [-4], scattering_timescale = [0.01], spectral_index = [0], 
+                            burst_width = [0.02], dm = [disp_measure], dm_index = [-2],
+                            scattering_index = [-4], scattering_timescale = [0.01], spectral_index = [0],
                             spectral_running = [0])
-                            
-    
+
+
     # Plot data and save
     #plt.imshow(fbt, aspect='auto')
     #Saves figure to .png image
-    plt.imshow(fbt_plot, aspect='auto')
+    plt.imshow(fbt, aspect='auto', extent=[0,nsamps*fbh.tsamp])
     plt.savefig(fil_short_name + '_' + str(fil_time) + '_' + str(t_origin) + '_test.png')
     data_full = fbt
     #print(fil_short_name)
