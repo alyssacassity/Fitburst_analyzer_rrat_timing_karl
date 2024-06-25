@@ -67,6 +67,7 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=True):
 
     # Remove bad channels using mask
     for i in range(len(mask)):
+        print(len(mask))
         print('fbt plot' + str(fbt_plot[:,i]))
         fbt_plot[i,:] = fbt[i,:]
         #fbt_plot[:,i] = np.mean(fbt, axis=1)
@@ -175,12 +176,12 @@ print('test2')
 fils_to_run = []
 for i in range(len(files)):
     for file in filfiles:
-        if filmjd[i] in file:
-            if (int(filmjd[i])>=59091 and int(filmjd[i])<59093):
+        if filmjd[ind] in file:
+            if (int(filmjd[ind])>=59091 and int(filmjd[ind])<59093):
                 ignored_chans.extend(list(range(444,470)))
-            elif int(filmjd[i])>=59093:
+            elif int(filmjd[ind])>=59093:
                 ignored_chans.extend(list(range(405,470)))
-            elif int(filmjd[i])>=59523:
+            elif int(filmjd[ind])>=59523:
                 ignored_chans.extend(list(range(83,108)))
             fils_to_run.append(file)
 print('filstorun length ' + str(len(fils_to_run)))
