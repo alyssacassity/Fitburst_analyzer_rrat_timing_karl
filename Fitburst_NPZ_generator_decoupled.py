@@ -54,13 +54,13 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=True):
     mask = (mn == 0)
     fbt[mask,:] = np.median(fbt[~mask,:])
     mad_mask = mad(fbt, axis=1) > 1
-    print('Mad mask is ' + str(mad_mask))
+    print('Mad mask is ' + str(list(mad_mask)))
     mask[mad_mask] = True
     fbt[mask,:] = np.median(fbt[~mask,:])
     std_on = np.std(fbt, axis=1)
-    print('Mask is ' + str(mask))
+    print('Mask is ' + str(list(mask)))
     iqrmmask,votes = iqrm_mask(std_on, threshold=1, ignorechans=ignored_chans)
-    print('Iqrmmask is ' + str(iqrmmask))
+    print('Iqrmmask is ' + str(list(iqrmmask)))
     mask[iqrmmask] = True
     fbt_plot = fbt
     print('ignored channels '+str(ignored_chans))
@@ -73,6 +73,7 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=True):
         if i in ignored_chans:
             mask[i] = True
             print('channel masked '+ str(i))
+        print('i is ' + str(mask[i]))
         if mask[i]:
             fbt[i,:] = np.median(fbt[i,:])
             fbt_plot[i,:] = np.median(fbt_plot[i,:])
