@@ -72,7 +72,7 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=True):
         #fbt_plot[:,i] = np.mean(fbt, axis=1)
         if i in ignored_chans:
             mask[i] = True
-            print('channel masked '+ i)
+            print('channel masked '+ str(i))
         if mask[i]:
             fbt[i,:] = np.median(fbt[i,:])
             fbt_plot[i,:] = np.median(fbt_plot[i,:])
