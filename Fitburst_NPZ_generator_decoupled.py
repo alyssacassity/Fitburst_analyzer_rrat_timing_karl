@@ -38,7 +38,14 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=True):
     #fbd = fbfile.read_dedisp_block(round(200/fbh.tsamp), 59000, 112.5)
     #print(fblock)
 
-
+    # Remove channels depending on MJD of file
+    if filmjd[ind] in file:
+        if (int(filmjd[ind])>=59091 and int(filmjd[ind])<59093):
+            ignored_chans.extend(list(range(444,470)))
+        elif int(filmjd[ind])>=59093:
+            ignored_chans.extend(list(range(405,470)))
+        elif int(filmjd[ind])>=59523:
+            ignored_chans.extend(list(range(83,108)))
 
     # Identify bad channels for masking and dedisperse data if needed
 
@@ -174,16 +181,10 @@ print('start time is ' + str(tstart_list))
 print('test2')
 
 fils_to_run = []
-#for i in range(len(files)):
-   # for file in filfiles:
-if filmjd[ind] in file:
-    if (int(filmjd[ind])>=59091 and int(filmjd[ind])<59093):
-        ignored_chans.extend(list(range(444,470)))
-    elif int(filmjd[ind])>=59093:
-        ignored_chans.extend(list(range(405,470)))
-    elif int(filmjd[ind])>=59523:
-        ignored_chans.extend(list(range(83,108)))
-        #fils_to_run.append(file)
+for i in range(len(files)):
+   for file in filfiles:
+       if filmjd[i] in file:
+            fils_to_run.append(file)
 print('filstorun length ' + str(len(fils_to_run)))
 
 toa_list = []
