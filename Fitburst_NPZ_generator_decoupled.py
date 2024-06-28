@@ -60,7 +60,7 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=True):
     mn = np.mean(fbt, axis = 1)
     mask = (mn == 0)
     fbt[mask,:] = np.median(fbt[~mask,:])
-    mad_mask = mad(fbt, axis=1) > 1
+    mad_mask = mad(fbt, axis=1) > 0.5
     print('Mad mask is ' + str(list(mad_mask)))
     mask[mad_mask] = True
     fbt[mask,:] = np.median(fbt[~mask,:])
