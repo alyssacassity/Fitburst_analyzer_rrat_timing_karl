@@ -17,7 +17,7 @@ ignored_chans = ([0] + list(range(34,48)) + list(range(113,179)) +
                  list(range(185,211)) + list(range(218,255)) + list(range(554,569)) + list(range(584,597)) +
                  list(range(631,645)) + list(range(677,694)) + list(range(754,763))+list(range(788,792))+list(range(854,861))+list(range(873,876))+[887])
 
-def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=False):
+def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=True):
     fbfile = FilReader(fil_name)
     sub = '.fil'
     # Remove suffix from filename for naming .npz file later
