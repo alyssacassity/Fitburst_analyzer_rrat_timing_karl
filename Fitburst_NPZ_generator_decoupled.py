@@ -60,7 +60,7 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=True):
     mn = np.mean(fbt, axis = 1)
     mask = (mn == 0)
     fbt[mask,:] = np.median(fbt[~mask,:])
-    mad_mask = mad(fbt, axis=1) > 0.5
+    mad_mask = mad(fbt, axis=1) > 0.2
     print('Mad mask is ' + str(list(mad_mask)))
     mask[mad_mask] = True
     fbt[mask,:] = np.median(fbt[~mask,:])
@@ -104,7 +104,7 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=True):
     # Plot data and save
     #plt.imshow(fbt, aspect='auto')
     #Saves figure to .png image
-    plt.imshow(fbt, aspect='auto', extent=[0,nsamps*fbh.tsamp, 0, len(mask)])
+    plt.imshow(fbt, aspect='auto', extent=[0,nsamps*fbh.tsamp, len(mask), 0])
     plt.savefig(fil_short_name + '_' + str(fil_time) + '_' + str(t_origin) + '_test.png')
     data_full = fbt
     #print(fil_short_name)
