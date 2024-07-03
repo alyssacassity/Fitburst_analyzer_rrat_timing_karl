@@ -23,7 +23,8 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=True):
     # Remove suffix from filename for naming .npz file later
     fil_short_name = [i for i in fil_name.split("/") if sub in i][0].removesuffix(sub)
     fbh = fbfile.header
-    downsamp=8 
+    downsamp = 8
+    dsampfreq = 8
     # Define variables
     t_block = 4
     nsamps = int(t_block/fbh.tsamp)
@@ -45,8 +46,8 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=True):
     elif int(filmjd[ind])>=59523:
         ignored_chans.extend(list(range(83,108)))
     ignored_chans.extend(list(range(380,520)))
-    #mask these channels
-    #Mask all known RFI channels
+    # Mask above channels
+    # Mask all known RFI channels
     import copy
     fbt = copy.deepcopy(fblock)
     mn = np.mean(fbt, axis = 1)
@@ -62,10 +63,22 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=True):
     fbt[mask,:] = np.median(fbt[~mask,:])
     # Identify bad channels for masking and dedisperse data if needed
     #import pdb; pdb.set_trace()
-    fbt = fbt.dedisperse(130)
+    if not isddp:
+        fbt = fblock.dedisperse(dm=disp_measure)
+        disp_measure = 0
+    else:
+        fbt = fblock
+        disp_measure = 0
     fbt = fbt.normalise()
-    fbt = fbt.downsample(downsamp,8)
+    fbt = fbt.downsample(downsamp,dsampfreq)
 
+    metadata = dict(bad_chans = 0, freqs_bin0 = fbh.fch1, is_dedispersed = isddp,
+                    num_time = nsamps/downsamp, num_freq = fbh.nchans/dsampfreq,
+                    times_bin0 = fbh.tstart+t_start/86400,  res_time = fbh.tsamp*downsamp, res_freq = fbh.foff*dsampfreq)
+    burst_parameters = dict(ref_freq = [600.2], amplitude = [np.log10(np.max(fbt))], arrival_time = [0.5],
+                            burst_width = [0.02], dm = [disp_measure], dm_index = [-2],
+                            scattering_index = [-4], scattering_timescale = [0.01], spectral_index = [0],
+                            spectral_running = [0])
 
     # Plot data and save
     #plt.imshow(fbt, aspect='auto')
