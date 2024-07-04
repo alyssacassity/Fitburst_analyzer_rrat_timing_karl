@@ -64,10 +64,11 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=False):
     # Identify bad channels for masking and dedisperse data if needed
     #import pdb; pdb.set_trace()
     if not isddp:
-        fbt = fblock.dedisperse(dm=disp_measure)
+        #fbt = fbt.dedisperse(dm=disp_measure)
+        fbt = fbt.dedisperse(dm=130)
         disp_measure = 0
     else:
-        fbt = fblock
+        fbt = fbt
         disp_measure = 0
     fbt = fbt.normalise()
     fbt = fbt.downsample(downsamp,dsampfreq)
