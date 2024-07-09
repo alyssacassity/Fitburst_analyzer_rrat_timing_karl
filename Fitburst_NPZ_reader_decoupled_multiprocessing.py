@@ -13,7 +13,7 @@ from multiprocessing import Process
 """Use Argparse to enable command line inputs"""
 parser = argparse.ArgumentParser()
 parser.add_argument(
-    'npz_path', 
+    'json_path',
     action='store', 
     type=str,
     help='Path to all .npz files to be analyzed')

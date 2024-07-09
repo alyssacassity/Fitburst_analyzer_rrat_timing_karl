@@ -13,18 +13,18 @@ import sys
 """Use Argparse to enable command line inputs"""
 parser = argparse.ArgumentParser()
 parser.add_argument(
-    'npz_path', 
+    'json_path',
     action='store', 
     type=str,
-    help='Path to all .npz files to be analyzed')
+    help='Path to all .json files to be analyzed')
 
 args = parser.parse_args()
-npz_path = args.npz_path
+json_path = args.json_path
 
 toa_list = []
 
 """ Some code for reading the TOA from the results json file"""
-results_files = [i for i in os.listdir(npz_path) if '.json' in i]
+results_files = [i for i in os.listdir(json_path) if '.json' in i]
 
 results_toa = []
 ref_freqs = []
@@ -33,7 +33,7 @@ filtime = []
 tstart_list = []
 print(results_files)
 for i in range(len(results_files)):
-    with open(npz_path + results_files[i], 'r') as f:
+    with open(json_path + results_files[i], 'r') as f:
         data = json.load(f)
         results_toa.append((data['model_parameters']['arrival_time'][0]-0.5)/86400)
         ref_freqs.append(800)

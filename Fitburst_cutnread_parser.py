@@ -28,7 +28,7 @@ parser.add_argument(
     type=str,
     help='Path to all .fil files to be analyzed')
 parser.add_argument(
-    'npz_path', 
+    'json_path',
     action='store', 
     type=str,
     help='Path to all .npz files to be analyzed')
