@@ -160,7 +160,7 @@ for file in files:
 filfiles = glob.glob(fils_path + r'/*.fil')
 print('filtime is ' + str(filtime))
 print('start time is ' + str(tstart_list))
-print('test2')
+#print('test2')
 
 fils_to_run = []
 for i in range(len(files)):

@@ -35,7 +35,7 @@ print(results_files)
 for i in range(len(results_files)):
     with open(json_path + results_files[i], 'r') as f:
         data = json.load(f)
-        results_toa.append((data['model_parameters']['arrival_time'][0]-0.5)/86400)
+        results_toa.append((data['model_parameters']['arrival_time'][0]-2)/86400)
         ref_freqs.append(800)
         filtime.append(results_files[i].split('_')[-2])
         tstart_list.append(results_files[i].split('_')[-1].removesuffix('.json'))
