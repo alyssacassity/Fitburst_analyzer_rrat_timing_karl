@@ -76,7 +76,7 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=False):
     metadata = dict(bad_chans = 0, freqs_bin0 = fbh.fch1, is_dedispersed = isddp,
                     num_time = nsamps/downsamp, num_freq = fbh.nchans/dsampfreq,
                     times_bin0 = fbh.tstart+t_start/86400,  res_time = fbh.tsamp*downsamp, res_freq = fbh.foff*dsampfreq)
-    burst_parameters = dict(ref_freq = [600.2], amplitude = [np.log10(np.max(fbt))], arrival_time = [0.5],
+    burst_parameters = dict(ref_freq = [600.2], amplitude = [np.log10(np.max(fbt))], arrival_time = [2],
                             burst_width = [0.02], dm = [disp_measure], dm_index = [-2],
                             scattering_index = [-4], scattering_timescale = [0.01], spectral_index = [0],
                             spectral_running = [0])
