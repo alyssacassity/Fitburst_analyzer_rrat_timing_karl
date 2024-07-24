@@ -38,11 +38,12 @@ for i in range(len(results_files)):
         ref_freqs.append(800)
         filtime.append(results_files[i].split('_')[-2])
         tstart_list.append(results_files[i].split('_')[-1].removesuffix('.json'))
+        # Replace nan with 1e-6 in errors for MJD
         if (isinstance(data['fit_statistics']['bestfit_uncertainties']['arrival_time'][0], float) and 
         (not np.isnan(data['fit_statistics']['bestfit_uncertainties']['arrival_time'][0]))) :
             mjd_errors.append(data['fit_statistics']['bestfit_uncertainties']['arrival_time'][0])
         else:
-            mjd_errors.append(1e-6)
+            mjd_errors.append('nan')
             
 
 '''with open(results_files[ind], 'r') as f:
