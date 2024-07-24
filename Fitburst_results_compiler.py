@@ -41,9 +41,9 @@ for i in range(len(results_files)):
         # Replace nan with 1e-6 in errors for MJD
         if (isinstance(data['fit_statistics']['bestfit_uncertainties']['arrival_time'][0], float) and 
         (not np.isnan(data['fit_statistics']['bestfit_uncertainties']['arrival_time'][0]))) :
-            mjd_errors.append(data['fit_statistics']['bestfit_uncertainties']['arrival_time'][0])
+            mjd_errors.append(data['fit_statistics']['bestfit_uncertainties']['arrival_time'][0]*1e6)
         else:
-            mjd_errors.append('nan')
+            mjd_errors.append(1)
             
 
 '''with open(results_files[ind], 'r') as f:
