@@ -8,7 +8,6 @@ import os
 import argparse
 import numpy as np
 import json
-import sys 
 
 """Use Argparse to enable command line inputs"""
 parser = argparse.ArgumentParser()
