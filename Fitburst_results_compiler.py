@@ -34,16 +34,14 @@ print(results_files)
 for i in range(len(results_files)):
     with open(json_path + results_files[i], 'r') as f:
         data = json.load(f)
-        results_toa.append((data['model_parameters']['arrival_time'][0]-2)/86400)
-        ref_freqs.append(800)
-        filtime.append(results_files[i].split('_')[-2])
-        tstart_list.append(results_files[i].split('_')[-1].removesuffix('.json'))
-        # Replace nan with 1e-6 in errors for MJD
-        if (isinstance(data['fit_statistics']['bestfit_uncertainties']['arrival_time'][0], float) and 
-        (not np.isnan(data['fit_statistics']['bestfit_uncertainties']['arrival_time'][0]))) :
+        # Check if uncertainty is a float, if nan, ignore data point
+        if (isinstance(data['fit_statistics']['bestfit_uncertainties']['arrival_time'][0], float) and
+                (not np.isnan(data['fit_statistics']['bestfit_uncertainties']['arrival_time'][0]))) :
+            results_toa.append((data['model_parameters']['arrival_time'][0]-2)/86400)
+            ref_freqs.append(800)
+            filtime.append(results_files[i].split('_')[-2])
+            tstart_list.append(results_files[i].split('_')[-1].removesuffix('.json'))
             mjd_errors.append(data['fit_statistics']['bestfit_uncertainties']['arrival_time'][0]*1e6)
-        else:
-            mjd_errors.append(1)
             
 
 '''with open(results_files[ind], 'r') as f:
