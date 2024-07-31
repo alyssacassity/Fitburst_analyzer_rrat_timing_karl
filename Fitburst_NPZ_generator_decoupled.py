@@ -26,7 +26,7 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=False):
     downsamp = 8
     dsampfreq = 8
     # Define variables
-    t_block = 4
+    t_block = 10
     nsamps = int(t_block/fbh.tsamp)
     nsamps = nsamps-nsamps%downsamp
     #t_start = 396.3
@@ -70,12 +70,21 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=False):
     else:
         fbt = fbt
         disp_measure = 0
-    fbt = fbt.normalise()
+
     fbt = fbt.downsample(downsamp,dsampfreq)
+    fbt = fbt.normalise()
+    zoom_mid_sample = int(t_block/2/fbh.tsamp/downsamp)
+    zoom_window = 1 #second
+    zoom_window_samples = int(zoom_window/fbh.tsamp/downsamp)
+    zoom_start_samp = int(zoom_mid_sample - zoom_window_samples/2)
+    zoom_end_samp = int(zoom_mid_sample + zoom_window_samples/2)
+    fbt_zoom = fbt[:, zoom_start_samp:zoom_end_samp]
+    fbt = fbt_zoom
+    time_bin0 = fbh.tstart + start_samp*fbh.tsamp/86400 + zoom_start_samp*fbh.tsamp*downsamp/86400
 
     metadata = dict(bad_chans = 0, freqs_bin0 = fbh.fch1, is_dedispersed = isddp,
                     num_time = nsamps/downsamp, num_freq = fbh.nchans/dsampfreq,
-                    times_bin0 = fbh.tstart+t_start/86400,  res_time = fbh.tsamp*downsamp, res_freq = fbh.foff*dsampfreq)
+                    times_bin0 = time_bin0,  res_time = fbh.tsamp*downsamp, res_freq = fbh.foff*dsampfreq)
     burst_parameters = dict(ref_freq = [600.2], amplitude = [np.log10(np.max(fbt))], arrival_time = [2],
                             burst_width = [0.02], dm = [disp_measure], dm_index = [-2],
                             scattering_index = [-4], scattering_timescale = [0.01], spectral_index = [0],
@@ -84,10 +93,10 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=False):
     # Plot data and save
     #plt.imshow(fbt, aspect='auto')
     #Saves figure to .png image
-    
+    plt.figure()
     plt.imshow(fbt, aspect='auto',cmap="YlGnBu")
-    plt.show()
     plt.savefig(fil_short_name + '_' + str(fil_time) + '_' + str(t_origin) + '_test.png')
+    plt.close()
     data_full = fbt
     #print(fil_short_name)
     #print(r'~/NPZ_files/'+ fil_short_name + '_' + fil_time + '.npz')
@@ -174,4 +183,4 @@ print('test')
 #for file_run in fils_to_run:
 print('filstorun length ' + str(len(fils_to_run)) + 'filtime length ' + str(len(filtime)) + 'fildm length ' + str(len(fildm)) + 'tstart length ' +str(len(tstart_list)))
 print('Index '+ str(ind))
-singlecut(fils_to_run[ind], float(filtime[ind])-2, float(fildm[ind]), float(filtime[ind]), float(tstart_list[ind]))
+singlecut(fils_to_run[ind], float(filtime[ind])-5, float(fildm[ind]), float(filtime[ind]), float(tstart_list[ind]))
