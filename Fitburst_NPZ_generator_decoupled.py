@@ -93,10 +93,10 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=False):
     # Plot data and save
     #plt.imshow(fbt, aspect='auto')
     #Saves figure to .png image
-    
+    plt.figure()
     plt.imshow(fbt, aspect='auto',cmap="YlGnBu")
-    plt.show()
     plt.savefig(fil_short_name + '_' + str(fil_time) + '_' + str(t_origin) + '_test.png')
+    plt.close()
     data_full = fbt
     #print(fil_short_name)
     #print(r'~/NPZ_files/'+ fil_short_name + '_' + fil_time + '.npz')
