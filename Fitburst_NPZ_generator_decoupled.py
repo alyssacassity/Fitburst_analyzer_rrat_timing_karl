@@ -183,4 +183,4 @@ print('test')
 #for file_run in fils_to_run:
 print('filstorun length ' + str(len(fils_to_run)) + 'filtime length ' + str(len(filtime)) + 'fildm length ' + str(len(fildm)) + 'tstart length ' +str(len(tstart_list)))
 print('Index '+ str(ind))
-singlecut(fils_to_run[ind], float(filtime[ind])-2, float(fildm[ind]), float(filtime[ind]), float(tstart_list[ind]))
+singlecut(fils_to_run[ind], float(filtime[ind])-5, float(fildm[ind]), float(filtime[ind]), float(tstart_list[ind]))
