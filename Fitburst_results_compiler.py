@@ -66,6 +66,7 @@ for i in range(len(tstart_list)):
     toa_list.append(float(tstart_list[i])+float(filtime[i])+float(results_toa[i]))
 print("TOA_list", toa_list)
 print(len(toa_list))
+print(len(results_files))
 
 
 """ Save data to .tim file"""
