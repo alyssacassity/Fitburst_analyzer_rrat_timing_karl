@@ -43,7 +43,9 @@ for i in range(len(results_files)):
             filtime.append(results_files[i].split('_')[-2])
             tstart_list.append(results_files[i].split('_')[-1].removesuffix('.json'))
             mjd_errors.append(data['fit_statistics']['bestfit_uncertainties']['arrival_time'][0]*1e6)
-            fil_names.append(results_files[i].removesuffix('_'+ str(filtime[i])+'_'+str(tstart_list[i])+'.json').removeprefix('results_fitburst_'))
+            fil_names.append(results_files[i].removesuffix('_'+ str(results_files[i].split('_')[-2])
+                                                           +'_'+str(results_files[i].split('_')[-1].removesuffix('.json'))
+                                                           +'.json').removeprefix('results_fitburst_'))
             
 
 '''with open(results_files[ind], 'r') as f:
