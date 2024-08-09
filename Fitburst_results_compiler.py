@@ -72,7 +72,7 @@ print(len(results_files))
 """ Save data to .tim file"""
 res_file = open('pulsar_timing_results.tim', 'w')
 txt_list = []
-for i in range(len(results_files)):
+for i in range(len(toa_list)):
     txt_line = (results_files[i].removesuffix('_'+ str(filtime[i])+'_'+str(tstart_list[i])+'.json').removeprefix('results_fitburst_')
                 + ' ' + str(ref_freqs[i]) + ' ' + str(toa_list[i]) + ' ' 
                 + str(mjd_errors[i]) + ' y  \n')
