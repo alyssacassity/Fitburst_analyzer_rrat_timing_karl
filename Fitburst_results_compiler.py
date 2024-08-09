@@ -30,6 +30,7 @@ ref_freqs = []
 mjd_errors = []
 filtime = []
 tstart_list = []
+fil_names = []
 print(results_files)
 for i in range(len(results_files)):
     with open(json_path + results_files[i], 'r') as f:
@@ -37,6 +38,7 @@ for i in range(len(results_files)):
         # Check if uncertainty is a float, if nan, ignore data point
         if (isinstance(data['fit_statistics']['bestfit_uncertainties']['arrival_time'][0], float) and
                 (not np.isnan(data['fit_statistics']['bestfit_uncertainties']['arrival_time'][0]))) :
+            fil_names.append(results_files[i].removesuffix('_'+ str(filtime[i])+'_'+str(tstart_list[i])+'.json').removeprefix('results_fitburst_'))
             results_toa.append((data['model_parameters']['arrival_time'][0]-2)/86400)
             ref_freqs.append(800)
             filtime.append(results_files[i].split('_')[-2])
@@ -73,7 +75,7 @@ print(len(results_files))
 res_file = open('pulsar_timing_results.tim', 'w')
 txt_list = []
 for i in range(len(toa_list)):
-    txt_line = (results_files[i].removesuffix('_'+ str(filtime[i])+'_'+str(tstart_list[i])+'.json').removeprefix('results_fitburst_')
+    txt_line = (fil_names[i]
                 + ' ' + str(ref_freqs[i]) + ' ' + str(toa_list[i]) + ' ' 
                 + str(mjd_errors[i]) + ' y  \n')
     txt_list.append(txt_line)
