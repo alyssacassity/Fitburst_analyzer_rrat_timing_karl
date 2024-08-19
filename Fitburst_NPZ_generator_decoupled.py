@@ -5,13 +5,11 @@ Final version before removing debug test statements
 @author: ktsan
 """
 import glob
-import os
 import argparse
 import numpy as np
 from sigpyproc.readers import FilReader
 import matplotlib.pyplot as plt
 from iqrm  import iqrm_mask
-from scipy.stats import median_abs_deviation as mad
 
 ignored_chans = ([0] + list(range(34,48)) + list(range(113,179)) +
                  list(range(185,211)) + list(range(218,255)) + list(range(554,569)) + list(range(584,597)) +

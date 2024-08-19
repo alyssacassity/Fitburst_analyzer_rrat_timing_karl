@@ -6,9 +6,6 @@ Created on Wed May 22 12:37:22 2024
 """
 import os
 import argparse
-import numpy as np
-import json
-import sys # Needed for bash script interfacing
 
 """Use Argparse to enable command line inputs"""
 parser = argparse.ArgumentParser()
