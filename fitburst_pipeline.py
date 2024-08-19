@@ -34,7 +34,7 @@ parser.add_argument(
 )
 
 parser.add_argument(
-    'npz_path', 
+    'npz_path',
     action='store', 
     type=str,
     help='NPZ filepath')
