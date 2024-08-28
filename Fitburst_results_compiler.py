@@ -52,7 +52,7 @@ filtime = [float(i) for i in filtime]
 filtime = np.array(filtime)/86400
 
     
-# Call fitburst_pipeline.py on the .npz files and iterate over them
+# Read in start times, and from start times append actual TOAs to new list
 for i in range(len(tstart_list)):    
     toa_list.append(float(tstart_list[i])+float(filtime[i])+float(results_toa[i]))
 
