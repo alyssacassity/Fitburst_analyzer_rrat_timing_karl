@@ -3,6 +3,9 @@
 Created on Thu May  9 14:34:19 2024
 Final version before removing debug test statements
 @author: ktsan
+
+Edited by Alyssa cassity
+Change up-to-date as of April 1 2025
 """
 import glob
 import argparse
@@ -53,31 +56,31 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=False):
     mask[ignored_chans] = True
     fbt[mask,:] = np.median(fbt[~mask,:])
     # Identify bad channels for masking and dedisperse data if needed
-    if not isddp:
-        fbt = fbt.dedisperse(dm=disp_measure)
-        disp_measure = 0
-    else:
-        fbt = fbt
-        disp_measure = 0
+    fbt = fbt.dedisperse(dm=disp_measure)
+    disp_measure = 0
     # Downsample data by ratio downsamp and downsample frequency data by ratio downfreq
     fbt = fbt.downsample(downsamp,dsampfreq)
     fbt = fbt.normalise()
-    # Further cut data down to 1 second block
+    #  Further cut data down to 1 second block
     zoom_mid_sample = int(t_block/2/fbh.tsamp/downsamp)
-    zoom_window = 1 #second
+    zoom_window = 0.3 #second
     zoom_window_samples = int(zoom_window/fbh.tsamp/downsamp)
     zoom_start_samp = int(zoom_mid_sample - zoom_window_samples/2)
     zoom_end_samp = int(zoom_mid_sample + zoom_window_samples/2)
     fbt_zoom = fbt[:, zoom_start_samp:zoom_end_samp]
     fbt = fbt_zoom
+    mnf = np.mean(fbt,axis=0)
+    indices = np.where(mnf == mnf.max())
+    arr_time = indices[0][0]*fbh.tsamp*8
+    print(arr_time)
     time_bin0 = fbh.tstart + start_samp*fbh.tsamp/86400 + zoom_start_samp*fbh.tsamp*downsamp/86400
     #Populate metadata and burst_parameters dictionaries for generating .npz file
     metadata = dict(bad_chans = 0, freqs_bin0 = fbh.fch1, is_dedispersed = isddp,
                     num_time = zoom_window_samples, num_freq = fbh.nchans/dsampfreq,
                     times_bin0 = time_bin0,  res_time = fbh.tsamp*downsamp, res_freq = fbh.foff*dsampfreq)
-    burst_parameters = dict(ref_freq = [600.2], amplitude = [np.log10(np.max(fbt))], arrival_time = [0.5],
-                            burst_width = [0.02], dm = [disp_measure], dm_index = [-2],
-                            scattering_index = [-4], scattering_timescale = [0.01], spectral_index = [0],
+    burst_parameters = dict(ref_freq = [600.2], amplitude = [0.5], arrival_time = [arr_time],
+                            burst_width = [0.001], dm = [disp_measure], dm_index = [-2],
+                            scattering_index = [-4], scattering_timescale = [0.001], spectral_index = [0],
                             spectral_running = [0])
 
     # Plot data and save
