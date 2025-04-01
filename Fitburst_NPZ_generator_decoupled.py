@@ -69,6 +69,7 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=False):
     zoom_end_samp = int(zoom_mid_sample + zoom_window_samples/2)
     fbt_zoom = fbt[:, zoom_start_samp:zoom_end_samp]
     fbt = fbt_zoom
+    # Find peak for arrival time in burst parameters
     mnf = np.mean(fbt,axis=0)
     indices = np.where(mnf == mnf.max())
     arr_time = indices[0][0]*fbh.tsamp*8
