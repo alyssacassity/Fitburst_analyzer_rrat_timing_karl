@@ -72,7 +72,6 @@ def singlecut(fil_name, t_start, disp_measure, fil_time, t_origin, isddp=False):
     mnf = np.mean(fbt,axis=0)
     indices = np.where(mnf == mnf.max())
     arr_time = indices[0][0]*fbh.tsamp*8
-    print(arr_time)
     time_bin0 = fbh.tstart + start_samp*fbh.tsamp/86400 + zoom_start_samp*fbh.tsamp*downsamp/86400
     #Populate metadata and burst_parameters dictionaries for generating .npz file
     metadata = dict(bad_chans = 0, freqs_bin0 = fbh.fch1, is_dedispersed = isddp,
