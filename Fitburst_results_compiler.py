@@ -3,6 +3,8 @@
 Created on Mon May 27 14:58:08 2024
 
 @author: ktsan
+
+Edited April 1 2025 by Alyssa Cassity
 """
 import os
 import argparse
@@ -28,34 +30,27 @@ results_files = [i for i in os.listdir(json_path) if '.json' in i]
 results_toa = []
 ref_freqs = []
 mjd_errors = []
-filtime = []
-tstart_list = []
 fil_names = []
+timebin0 = []
 for i in range(len(results_files)):
     with open(json_path + results_files[i], 'r') as f:
         data = json.load(f)
+        print(results_files[i])
         # Check if uncertainty is a float, if nan, ignore data point
         if (isinstance(data['fit_statistics']['bestfit_uncertainties']['arrival_time'][0], float) and
                 (not np.isnan(data['fit_statistics']['bestfit_uncertainties']['arrival_time'][0]))) :
-            results_toa.append((data['model_parameters']['arrival_time'][0]-2)/86400)
+            results_toa.append((data['model_parameters']['arrival_time'][0])/86400)
             ref_freqs.append(800)
-            filtime.append(results_files[i].split('_')[-2])
-            tstart_list.append(results_files[i].split('_')[-1].removesuffix('.json'))
+            timebin0.append((data["initial_time"]))
             mjd_errors.append(data['fit_statistics']['bestfit_uncertainties']['arrival_time'][0]*1e6)
             fil_names.append(results_files[i].removesuffix('_'+ str(results_files[i].split('_')[-2])
                                                            +'_'+str(results_files[i].split('_')[-1].removesuffix('.json'))
                                                            +'.json').removeprefix('results_fitburst_'))
 
 
-
-filtime = [float(i) for i in filtime]
-filtime = np.array(filtime)/86400
-
-    
 # Read in start times, and from start times append actual TOAs to new list
-for i in range(len(tstart_list)):    
-    toa_list.append(float(tstart_list[i])+float(filtime[i])+float(results_toa[i]))
-
+for i in range(len(timebin0)):    
+    toa_list.append(float(timebin0[i])+float(results_toa[i]))
 
 # Save data to a .tim file
 res_file = open('pulsar_timing_results.tim', 'w')
